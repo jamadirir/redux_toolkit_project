@@ -10,12 +10,15 @@ export const postSlice = createSlice({
     getPosts:(state,action)=>{
       state.posts=action.payload;
     },
+
     addPost:(state,action)=>{
         state.posts.push(action.payload)
     },
+
     deletePost:(state,action)=>{
       state.posts=state.posts.filter(post => post._id != action.payload)
     }, 
+    
     updatePost:(state,action)=>{
       state.posts.map(post=>{
         if(post._id===action.payload.id){

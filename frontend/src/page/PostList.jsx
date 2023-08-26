@@ -9,7 +9,6 @@ function PostList() {
     const navigate=useNavigate()
     const dispatch=useDispatch()
     const posts=useSelector(state=>state.posts.posts)
-    console.log("POSTS:",posts)
 
     useEffect(()=>{
         const getData=async()=>{
@@ -29,11 +28,7 @@ function PostList() {
           await axios.delete('http://localhost:8080/api/posts/delete/'+id)
           dispatch(deletePost(id))
         } catch (error) {
-          res.send({
-            success:false,
-            message:error.message
-          })
-    
+          console.log(error)
         }
        }
 

@@ -10,24 +10,14 @@ function CreatePost() {
  const [post,setPost]=useState(''); 
  const dispatch=useDispatch()
   const navigate=useNavigate()
-
+   
    const handleSubmit=async(event)=>{
     event.preventDefault()
     try {
-      const response=await axios.post('http://localhost:8080/api/posts/create',{title,post})
-      dispatch(addPost(console.log("Register:",response.data)))
-         
-        res.send({
-          success:true,
-          data:response,
-          message:'post created'
-        })
-       
+      const response=await axios.post("http://localhost:8080/api/posts/create",{title,post})
+      dispatch(addPost(response.data))
     } catch (error) {
-      res.send({
-        success:false,
-        message:error.message
-      })
+     console.log(error)
     }
    }
 
@@ -44,7 +34,7 @@ function CreatePost() {
            <label htmlFor="title">Post </label>
            <textarea id="post" placeholder='please write your post here' name="post" value={post} className='form-control-lg pt-1  mb-2'  onChange={(e)=>setPost(e.target.value)}/>
            </div>
-            <button type='button' className='btn btn-success me-lg-2 p-3'  onClick={(event)=>{
+            <button type='button' className='btn btn-success me-lg-2 p-3' onClick={(event)=>{
               handleSubmit(event),
               setTitle("")
               setPost("")

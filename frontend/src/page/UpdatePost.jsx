@@ -8,27 +8,19 @@ function UpdatePost() {
     const {id}=useParams()
     const posts=useSelector(state=>state.posts.posts)
     const post=posts.data?.find(post=>post._id===id)
-    console.log("posts:",post)
     const [editTitle,setEditTitle]=useState(post?.title)
     const [editPost,setEditPost]=useState(post?.post)
     const navigate=useNavigate()
     const dispatch=useDispatch()
-  
-    console.log("ID:",post._id)
+
 
     const handleUpdate=async(event)=>{
       event.preventDefault()
       try {
-        const res=await axios.put('http://localhost:8080/api/posts/update/'+id,{editTitle,editPost})
-         console.log("RESs:",res)
-        if(res){
-          dispatch(updatePost(console.log("UPDATE:",{id,title:editTitle,post:editPost})))
-        }
+          await axios.put('http://localhost:8080/api/posts/update/'+id,{editTitle,editPost})
+          dispatch(updatePost({id,title:editTitle,post:editPost}))
       } catch (error) {
-        res.send({
-          success:false,
-          message:error.message
-        })
+        console.log(error)
       }
     }
 
